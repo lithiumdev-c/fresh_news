@@ -68,9 +68,15 @@ def search():
     if form.validate_on_submit():
         searched = form.searched.data
         posts = Post.query.filter(Post.title.contains(searched)).all()
-        data = newsapi.get_everything(q=searched, language='ru', page_size=10)
-        if isinstance(data, dict) and 'articles' in data:
-            articles = data['articles']
+        try:
+            data = newsapi.get_everything(q=searched, language='ru', page_size=10)
+            if isinstance(data, dict) and 'articles' in data:
+                articles = data['articles']
+        except NewsAPIException as e:
+            print("❌ Ошибка при поиске новостей:", e)
+        except Exception as e:
+            print("❌ Непредвиденная ошибка при поиске:", e)
+
     return render_template("search.html", form=form, searched=searched, articles=articles, posts=posts)
 
 @app.route("/post_page/<int:id>")
