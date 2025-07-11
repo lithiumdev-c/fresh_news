@@ -8,6 +8,7 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 from newspaper import Article
 from urllib.parse import unquote
+from newsapi.newsapi_exception import NewsAPIException
 
 my_api_key = "2e03fbbf56b74ea2841af75b7e81b678"
 newsapi = NewsApiClient(api_key=my_api_key)
