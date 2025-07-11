@@ -30,18 +30,18 @@ class Post(db.Model):
 @app.route("/index")
 @app.route("/")
 def index():
-try:
-    data = newsapi.get_everything(q='Новости', language='ru', page_size=20)
-except Exception as e:
-    r = requests.get("https://newsapi.org/v2/everything", params={
-        "q": "Новости",
-        "language": "ru",
-        "pageSize": 20,
-        "apiKey": "твой_ключ"
-    })
-    print("СТАТУС:", r.status_code)
-    print("ОТВЕТ:", r.text[:500])  # первые 500 символов
-    raise e
+    try:
+        data = newsapi.get_everything(q='Новости', language='ru', page_size=20)
+    except Exception as e:
+        r = requests.get("https://newsapi.org/v2/everything", params={
+            "q": "Новости",
+            "language": "ru",
+            "pageSize": 20,
+            "apiKey": "твой_ключ"
+        })
+        print("СТАТУС:", r.status_code)
+        print("ОТВЕТ:", r.text[:500])  # первые 500 символов
+        raise e
 
 @app.route("/create", methods=['POST', 'GET'])
 def create():
