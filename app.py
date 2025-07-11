@@ -30,18 +30,17 @@ class Post(db.Model):
 @app.route("/index")
 @app.route("/")
 def index():
+    articles = []
+    posts = Post.query.order_by(Post.published_at.desc()).all()
+
     try:
         data = newsapi.get_everything(q='Новости', language='ru', page_size=20)
+        if isinstance(data, dict) and 'articles' in data:
+            articles = data['articles']
     except Exception as e:
-        r = requests.get("https://newsapi.org/v2/everything", params={
-            "q": "Новости",
-            "language": "ru",
-            "pageSize": 20,
-            "apiKey": "твой_ключ"
-        })
-        print("СТАТУС:", r.status_code)
-        print("ОТВЕТ:", r.text[:500])  # первые 500 символов
-        raise e
+        print("❌ Ошибка при получении новостей:", e)
+
+    return render_template("index.html", articles=articles, posts=posts)
 
 @app.route("/create", methods=['POST', 'GET'])
 def create():
