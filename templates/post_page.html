@@ -35,11 +35,12 @@
         <div class="content">
             <i class="bi bi-arrow-left"></i>
             <div class="container-lg">
-                <h1>{{ post.title }}</h1>
-                <h4>{{ post.published_at.strftime('%Y-%m-%d') }}</h4>
-                <p>{{ post.text }}</p>
-                <p>{{}}</p>
-                <a href="{{ url_for('index') }}" class="btn btn-primary">Назад</a>
+                    <h1>{{ post.title or "Без названия" }}</h1>
+                    <p>{{ post.text or "Текст отсутствует" }}</p>
+                    <p>Дата публикации:
+                        {{ post.published_at.strftime('%Y-%m-%d %H:%M') if post.published_at else "Неизвестна" }}
+                    </p>
+                    <a href="/">← Назад</a>
             </div>
         </div>
     </div>
