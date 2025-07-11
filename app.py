@@ -10,6 +10,7 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired
 from newspaper import Article
 from urllib.parse import unquote
+my_api_key =
 newsapi = NewsApiClient(api_key=my_api_key )
 
 
