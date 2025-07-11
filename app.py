@@ -3,14 +3,13 @@ from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 import requests
 from newsapi import NewsApiClient
-from key import my_api_key
 from datetime import datetime
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired
 from newspaper import Article
 from urllib.parse import unquote
-my_api_key =
+my_api_key = "2e03fbbf56b74ea2841af75b7e81b678"
 newsapi = NewsApiClient(api_key=my_api_key )
 
 
