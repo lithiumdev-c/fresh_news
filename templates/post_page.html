@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/index.css') }}">
+    <title>Fresh News!</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+        rel="stylesheet">
+    <link rel="icon" href="static/images/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <div class="page">
+        <header class="header">
+            <img src="{{ url_for('static', filename='images/logo.svg')}}" alt="" class="logo">
+            <nav id="nav-menu" class="nav nav_header">
+                <a href="{{ url_for('index') }}" class="">Главная</a>
+                <a href="{{ url_for('create') }}" class="">Создать статью</a>
+                <a href="" class="about-us">О нас</a>
+                <a href="" class="premium">Подписка</a>
+            </nav>
+            <button class="my_login">Войдите в свой аккаунт</button>
+            <button class="my_register">Зарегистрируйте свой аккаунт</button>
+            <a id="menu-toggle" class="menu">
+                <img class="menu_icon" src="{{ url_for('static', filename='images/menu.svg') }}" alt="">
+            </a>
+        </header>
+        <div class="content">
+            <i class="bi bi-arrow-left"></i>
+            <div class="container-lg">
+                <h1>{{ post.title }}</h1>
+                <h4>{{ post.published_at.strftime('%Y-%m-%d') }}</h4>
+                <p>{{ post.text }}</p>
+                <p>{{}}</p>
+                <a href="{{ url_for('index') }}" class="btn btn-primary">Назад</a>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const navMenu = document.getElementById('nav-menu');
+
+    menuToggle.addEventListener('click', function () {
+        navMenu.classList.toggle('active');
+    });
+
+    // Закрытие при клике вне меню
+    document.addEventListener('click', function (event) {
+        if (!navMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+            navMenu.classList.remove('active');
+        }
+    });
+</script>
