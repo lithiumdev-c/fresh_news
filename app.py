@@ -14,12 +14,12 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-my_api_key = os.getenv("MY_API_KEY")
+my_api_key = "2e03fbbf56b74ea2841af75b7e81b678"
 newsapi = NewsApiClient(api_key=my_api_key)
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("SQLALCHEMY_DATABASE_URI")
+app.config['SECRET_KEY'] = 'freshNewsPass202394!!!'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///fresh_NEWS.db'
 db = SQLAlchemy(app)
 
 class SearchForm(FlaskForm):
