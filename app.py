@@ -9,13 +9,17 @@ from wtforms.validators import DataRequired
 from newspaper import Article
 from urllib.parse import unquote
 from newsapi.newsapi_exception import NewsAPIException
+import os
+from dotenv import load_dotenv
 
-my_api_key = "2e03fbbf56b74ea2841af75b7e81b678"
+load_dotenv()
+
+my_api_key = os.getenv("MY_API_KEY")
 newsapi = NewsApiClient(api_key=my_api_key)
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'freshNewsPass202394!!!'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///fresh_NEWS.db'
+app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("SQLALCHEMY_DATABASE_URI")
 db = SQLAlchemy(app)
 
 class SearchForm(FlaskForm):
@@ -39,7 +43,7 @@ def index():
         if isinstance(data, dict) and 'articles' in data:
             articles = data['articles']
     except Exception as e:
-        print("❌ Ошибка при получении новостей:", e)
+        print(f"Ошибка при получении новостей: {e}")
 
     return render_template("index.html", articles=articles, posts=posts)
 
@@ -74,9 +78,9 @@ def search():
             if isinstance(data, dict) and 'articles' in data:
                 articles = data['articles']
         except NewsAPIException as e:
-            print("❌ Ошибка при поиске новостей:", e)
+            print(f"Ошибка при поиске новостей: {e}")
         except Exception as e:
-            print("❌ Непредвиденная ошибка при поиске:", e)
+            print(f"Непредвиденная ошибка при поиске: {e}")
 
     return render_template("search.html", form=form, searched=searched, articles=articles, posts=posts)
 
